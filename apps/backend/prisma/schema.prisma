@@ -19,16 +19,46 @@ model User {
 
 model OrderCommand {
   id        String   @id @default(cuid())
+
+  // ---- Ownership ----
   userId    String
-  orderId   String   @unique
-  symbol    String
-  side      String
-  type      String
-  quantity  Float
-  status    String   // RECEIVED | PENDING | FILLED | REJECTED | ...
-  createdAt DateTime @default(now())
+
+  // ---- Internal + Exchange Identifiers ----
+  orderId           String   @unique        // internal client order id (UUID)
+  binanceOrderId    Int?                     // Binance order id (i)
+  symbol            String
+  side              String                  // BUY | SELL
+  type              String                  // MARKET | LIMIT | STOP_LOSS | STOP_LOSS_LIMIT
+
+  // ---- Order intent (from frontend submit) ----
+  
+  quantity           Float
+  price              Float?                 // LIMIT / STOP_LOSS_LIMIT
+  stopPrice          Float?                 // STOP_LOSS / TAKE_PROFIT
+  timeInForce        String?                // GTC / IOC / FOK
+
+  // ---- Execution state (updated via websocket) ----
+  status             String                 // RECEIVED | PENDING | PARTIALLY_FILLED | FILLED | REJECTED
+  rawStatus          String?                // Binance X: NEW, PARTIALLY_FILLED, FILLED, CANCELED, EXPIRED
+
+  executedQty        Float   @default(0)    // Binance z (cumulative filled qty)
+  cummulativeQuoteQty Float? @default(0)    // Binance Z
+  avgFillPrice       Float?                 // derived: Z / z
+  lastTradeQty       Float?                 // Binance l
+  lastTradePrice     Float?                 // Binance L
+
+  // ---- Error / rejection info ----
+  errorCode          String?
+  errorMsg           String?
+
+  // ---- Timestamps ----
+  submittedAt        DateTime @default(now())
+  lastExchangeUpdateAt DateTime?
+  createdAt          DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([userId, createdAt])
+  @@index([symbol])
 }
 
 model OrderEvent {
@@ -43,4 +73,18 @@ model OrderEvent {
 
   @@index([orderId, createdAt])
   @@index([userId, createdAt])
+}
+
+model Position {
+  id          String   @id @default(cuid())
+  userId      String
+  symbol      String
+  quantity    Float
+  avgPrice    Float
+  realizedPnl Float    @default(0)
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, symbol])
+  @@index([userId])
 }
