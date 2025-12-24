@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/pushkardev/Development/numatix/apps/frontend/app/logout/page.js"],"sourcesContent":["\"use client\";\n\nimport { useEffect } from \"react\";\nimport { useRouter } from \"next/navigation\";\n\nexport default function Logout() {\n    const router = useRouter();\n\n    useEffect(() => {\n        // Clear all auth-related data\n        localStorage.clear();\n\n        // Optional: also clear sessionStorage if used anywhere\n        sessionStorage.clear();\n\n        // Redirect to login page after logout\n        router.replace(\"/login\");\n    }, [router]);\n\n    return null;\n}"],"names":[],"mappings":";;;;AAEA;AACA;;AAHA;;;AAKe,SAAS;;IACpB,MAAM,SAAS,IAAA,sKAAS;IAExB,IAAA,8LAAS;4BAAC;YACN,8BAA8B;YAC9B,aAAa,KAAK;YAElB,uDAAuD;YACvD,eAAe,KAAK;YAEpB,sCAAsC;YACtC,OAAO,OAAO,CAAC;QACnB;2BAAG;QAAC;KAAO;IAEX,OAAO;AACX;GAfwB;;QACL,sKAAS;;;KADJ"}},
-    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":["file:///Users/pushkardev/Development/numatix/apps/frontend/node_modules/next/navigation.js"],"sourcesContent":["module.exports = require('./dist/client/components/navigation')\n"],"names":[],"mappings":"AAAA,OAAO,OAAO","ignoreList":[0]}}]
-}

@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,17604,(e,t,o)=>{t.exports=e.r(48544)},57117,e=>{"use strict";var t=e.i(59199),o=e.i(17604);function r(){let e=(0,o.useRouter)();return(0,t.useEffect)(()=>{localStorage.clear(),sessionStorage.clear(),e.replace("/login")},[e]),null}e.s(["default",()=>r])}]);
