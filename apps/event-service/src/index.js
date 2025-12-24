@@ -1,6 +1,7 @@
 import http from "http";
 import { WebSocketServer } from "ws";
 import { createClient } from "redis";
+import "dotenv/config";
 
 const PORT = process.env.PORT || 8081;
 const REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1:6379";
