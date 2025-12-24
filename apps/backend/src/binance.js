@@ -73,8 +73,8 @@ export async function getMyTrades(apiKey, apiSecret, {
 // );
 
 const trades = await getMyTrades(
-    "LMAzl5QCLNe3FynGkt69pFPzOWlRrw02jwayucWwO2ZpsAX0WTPNFK5i9ost9d4V",
-    "V0pKZXQ74pIL4tdxnZXSEryeDMZ70LuQQROfkqeKuycQtu3h76TXL466h99rBjlP",
+    "2OgAFV2nluKuLhRmsJWjeVqyvziVHdTYdmpDUU4h16dDWdjy5ENm9dU6FiN64uYg",
+    "kH7DvfpjsMHPBiDvuJSJae1a7SSv8HNLzw49IwAwsaAFeIzFvxBKpfASC7IQtGzY",
     {
         symbol: "BTCUSDT"
     }
