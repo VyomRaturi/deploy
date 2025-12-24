@@ -326,31 +326,6 @@ if (process.env.NODE_ENV !== "production") {
     });
 }
 
-app.get("/api/trading/account", requireAuth, async (req, res) => {
-    try {
-        // 1) fetch encrypted keys from DB
-        const user = await prisma.user.findUnique({
-            where: { id: req.user.id },
-            select: { binanceApiKeyEnc: true, binanceSecretKeyEnc: true },
-        });
-
-        if (!user) {
-            return res.status(404).json({ ok: false, error: "User not found" });
-        }
-
-        // decrypt keys
-        const apiKey = decrypt(user.binanceApiKeyEnc);
-        const apiSecret = decrypt(user.binanceSecretKeyEnc);
-
-        // 2) call Binance
-        const accountData = await getAccountInfo(apiKey, apiSecret);
-
-        return res.json({ ok: true, account: accountData });
-    } catch (e) {
-        console.error("[backend] get account error:", e);
-        return res.status(500).json({ ok: false, error: "Failed to fetch account" });
-    }
-});
 
 async function main() {
     await redis.connect();
